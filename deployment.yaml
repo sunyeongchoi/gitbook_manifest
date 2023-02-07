@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitbook
+  labels:
+    app: gitbook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitbook
+  template:
+    metadata:
+      labels:
+        app: gitbook
+    spec:
+      containers:
+      - name: gitbook
+        image: suoung0716/gitbook:test
+        command: ["/bin/bash"]
+        args: ["-c", "cd /gitbook; gitbook --lrport 35731 --port 4000 serve;"]
+        ports:
+        - containerPort: 4000
+          name: port
+        imagePullPolicy: Always
